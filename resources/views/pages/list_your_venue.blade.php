@@ -1,0 +1,433 @@
+@extends('layouts.main')
+
+@section('content')
+<style>.sr-only{display:none}
+.alert{display:none;
+    padding: 0px;
+    margin-bottom: 0px;
+    border: none;
+   border-radius: 0px; margin-top:7px;
+}
+</style>
+    @include('partials.status-panel')
+@include('layouts.homemenu')
+
+		
+		
+  <div class="container">
+     <div class="row corporate_hire mt-30">
+	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	  <div id="cart">
+    	   
+    </div>
+	 </div>
+	 
+	 
+     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+	   @if($category!='')
+	   <h3 class="text-center">{{$category->c_title}}</h3>
+			   <div class="row mt-30">
+				<div class="col-sm-12 col-md-3 col-lg-3 mb-30">
+				<img class="img-responsive" src="{{ url('') }}/uploads/original/{{ $category->c_image }}" alt="">
+				</div>
+				<div class="col-sm-12 col-md-9 col-lg-9">
+				{{$category->c_description}}
+				</div>
+			   </div>
+	   <hr>
+	   @endif
+	   
+	   <div class="row mt-30 " id="section2">
+	    @if($category!='')<h3 class="text-center"> {{$category->c_title}} hire space in London</h3>@endif
+		<div class="productlist"></div>
+	
+	   </div>
+	   <div class="row mt-30 mb-30"></div>
+	   <div class="row mt-30 mb-30">
+	   <style>
+	   .cart-item .img-wrap {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: 1px solid #edeff0;
+    float: left;
+    margin-left: -65px;
+}
+
+	   </style>
+       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+	   
+	   <?php /*<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+         <button type="button" class="btn btn-primary btn-center enqiry-button">SEARCH MORE</button>
+        </div> */?>
+         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+	   </div>
+	 </div>
+        </div>        
+       </div>  
+	   <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content"><a type="button" class="close text-right" data-dismiss="modal" aria-hidden="true">&times;</a>
+           <div class="modal-header">       
+                
+				<h4 class="modal-title" id="myModalLabel">CONTACT VENUE DIRECTLY</h4>
+				
+				
+				
+            </div>
+			
+            <div class="modal-body">               
+			   
+			   <div class="row contact_venue">
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">          
+		 
+		 <form method="POST" id="frm" accept-charset="UTF-8" enctype="multipart/form-data"  >
+	   <p class="alert-success hidden"></p>
+	   <input type="hidden" name="venue_id" value="">
+	   
+	   
+	   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	   
+			<section>
+			<div class='input-group date' id='datetimepicker2'>
+					<span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <input type='text' class="form-control" name="event_date" value="{{ old('event_date') }}"/>
+                    
+                </div>
+				<script>
+						$(document).ready(function(){
+							var date_input=$('input[name="event_date"]'); //our date input has the name "date"
+							var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+							date_input.datepicker({
+							format: 'mm/dd/yyyy',
+							container: container,
+							todayHighlight: true,
+							autoclose: true,
+							})
+						})
+				</script>
+			<span class="error event_date">{{ ($errors->has('event_date')) ? $errors->first('event_date') : ''}}</span>	
+			</section>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<section>
+			
+		<div class='input-group date' id='datetimepicker3'>
+			<span class="input-group-addon">
+				<span class="glyphicon glyphicon-time"></span>
+			</span>
+		<input type='text' class="form-control" name="event_time" value="{{ old('event_time') }}"/>
+
+		</div>
+
+	<script>
+		$(document).ready(function(){
+			var time_input=$('input[name="event_time"]'); //our date input has the name "date"
+			var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+			time_input.timepicker({			
+			
+			})
+		})
+	</script>		
+			<span class="error event_date">{{ ($errors->has('event_time')) ? $errors->first('event_time') : ''}}</span>	
+			</section>
+			
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<section>
+          <input type="text" name="no_of_guest" placeholder="Number of Guest *" value="{{ old('no_of_guest') }}" class="form-control">
+		  <span class="error no_of_guest">{{ ($errors->has('no_of_guest')) ? $errors->first('no_of_guest') : ''}}</span>
+		  </section>
+		  </div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		  <section>
+		  <input type="text" name="bph" placeholder="Budget per head *" value="{{ old('bph') }}" class="form-control">
+		  <span class="error bph">{{ ($errors->has('bph')) ? $errors->first('bph') : ''}}</span>
+		  </section>
+		  </div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		  <section>
+		  <input type="text" name="name" placeholder="Full Name *" value="{{ old('name') }}" class="form-control">
+		  <span class="error name">{{ ($errors->has('name')) ? $errors->first('name') : ''}}</span>
+		  </section>
+		  </div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		  <section>
+		  <input type="text" name="phone" placeholder="Contact Number *" value="{{ old('phone')}}" class="form-control">
+		  <span class="error">{{ ($errors->has('phone')) ? $errors->first('phone') : ''}}</span>
+		  </section>
+		  </div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		  <section>
+		  <input type="text" name="email" placeholder="Email Address *" value="{{ old('email') }}" class="form-control">
+		  <span class="error email">{{ ($errors->has('email')) ? $errors->first('email') : ''}}</span>
+		  </section>  
+		</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">		  
+		   <textarea rows="1" class="form-control" name="specific_req" placeholder="Additional details">{{ old('specific_req') }}</textarea>
+		   </div>
+		    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+		   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+		   <a href="javascript:void(0);" id="show">Have a promo code?</a>
+		   <section id="promocode" style="display:none;">
+		    <a href="javascript:void(0);" id="hide">Don't have a promo code?</a>		   
+		   <input type="text" name="promocode"  placeholder="Promo code" value="{{ old('promocode') }}" class="form-control" >
+		   </section>
+		   
+	<script>
+	$("#show").click(function(){
+    $("#promocode").show();
+	 $("#show").hide();
+	});
+</script>
+<script>
+	$("#hide").click(function(){
+    $("#promocode").hide();
+	 $("#show").show();
+	});
+</script>
+ </div>
+
+		   
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">	   
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"></div>	
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">		   
+<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+<input type="hidden" name="venue_id" value="" id="venue_id">
+ <button type="submit" name="" class="btn btn-primary" > SEND ENQUIRY</button>
+ </div>
+ <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"></div>
+ </div>	
+ <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+ <div class="row">
+<h4 class="text-center">CALL VENUE DIRECTLY</h4>
+<h3 class="text-center">020 3733 8723</h3>
+ </div>	
+ </div>	
+ </form>           
+         </div>   
+        </div>		
+		
+        </div>
+    </div>
+</div>
+<script>
+var slug="{{ $slug }}"; 
+</script>
+
+
+<script>
+$(document).on("click", ".onclk", function () {
+     var venue_id = $(this).data('id'); 
+     $(".modal-body #venue_id").val( venue_id );    
+     // it is superfluous to have to manually call the modal.
+    $('#myModal').modal('show');
+});
+
+</script>
+<script>
+  $(document).ready(function() {
+    $('#frm').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+			event_date: {
+                validators: {
+                        notEmpty: {
+                        message: 'Please choose a date'
+                    }
+                }
+            },
+			event_time: {
+                validators: {
+                        notEmpty: {
+                        message: 'Please choose a time'
+                    }
+                }
+            },
+            no_of_guest: {
+                validators: {
+                        notEmpty: {
+                        message: 'Please enter no of guest'
+                    }
+                }
+            },
+			bph: {
+                validators: {
+                        notEmpty: {
+                        message: 'Please enter budget per head *'
+                    }
+                }
+            },			
+             name: {
+                validators: {
+                     stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Please enter a name'
+                    }
+                }
+            },
+            
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter a contact number'
+                    },
+                    phone: {
+                        country: 'UK',
+                        message: 'Please enter a vaild contact number'
+                    }
+                }
+            },
+			email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter a email address'
+                    },
+                    emailAddress: {
+                        message: 'Please enter a valid email address'
+                    }
+                }
+            },
+            },
+			//perform an AJAX post to ajax.php
+                    submitHandler: function() {					
+						
+                        $.post("{{url('venue-enquiry-added-ajax')}}", 
+                        $('form#frm').serialize() , 
+                        function(data){
+							$('#frm').bootstrapValidator('resetForm', true); 
+                           $(".alert-success").html(data.msg).removeClass('hidden');
+                        }, "json");
+                    }
+			
+			
+        })
+	
+});
+
+
+</script>
+<script>
+/*
+$(document).ready(function () {
+
+    $('#frm').validate({
+        rules: {
+            no_of_guest: {              
+                required: true
+            },
+            bph: {
+                required: true
+            },
+			 name: {
+                required: true
+            },
+			phone: {
+                required: true
+            },
+			email: {
+                required: true
+            },
+
+			
+        },
+        highlight: function (element) {
+            $(element).closest('.control-group')
+                .removeClass('success').addClass('error');
+        },
+        success: function (element) {
+            element.addClass('valid').closest('.control-group')
+                .removeClass('error').addClass('success');
+        },
+        submitHandler: function (form) {
+            $.ajax({
+                type: $(form).attr('method'),
+                url: "../php/client/json.php",
+                data: $(form).serialize(),
+                success: function (data, status) {
+                    $(this).modal('hide');
+                }
+            });
+            alert('valid form submitted by ajax'); // for demo
+            return false;
+        }
+    });
+
+});
+		*/
+		
+		</script>
+		 <script src="{{ asset('assets/js/product.js') }}"></script>
+		 <script>
+$(document).ready(function(){
+<?php $maxP = 500;
+  for($i=1;$i<$maxP; $i++) {?>
+    $('#successMsg<?php echo $i;?>').hide();
+	$('body').on('click', '#cartBtn<?php echo $i;?>', function () {
+         var pro_id<?php echo $i;?> = $('#pro_id<?php echo $i;?>').val();
+      $.ajax({
+        type: 'get',
+        url: '<?php echo url('/cart/addItem');?>/'+ pro_id<?php echo $i;?>,
+        success:function(data){ 		
+		$('#min_cart').prepend('<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 rm'+data.rowId+'"><div class="btn-list"><img src="<?php echo url('');?>/uploads/venue/thumbnail/'+data.image+'" style="width:100%"><p style="margin:0px;">'+data.name+'</p><span class="delBtn" data-role="delete" id="'+data.rowId+'" data-id="'+<?php echo $i;?>+'"><span class="glyphicon glyphicon-minus-sign"></span></span></div></div>')
+	
+		
+		
+		$('.cn_dis').removeClass( "cnt_hide" ).addClass( "cnt_show" );
+		//$('.cn_dis').addClass( "cnt_show" );
+		 $('#cont').text(data.cnt);
+		 $('#my_venues').css('display','block');
+		 $("body").animate({scrollTop:0}, '1000');
+		 
+		  
+        $('#cartBtn<?php echo $i;?>').hide();
+        $('#successMsg<?php echo $i;?>').show();
+		$('#successMsg<?php echo $i;?>').html('');
+        $('#successMsg<?php echo $i;?>').append('Venue Shortlisted');
+        }
+      });
+
+    });
+    <?php }?>
+
+});
+
+
+</script>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
+@stop

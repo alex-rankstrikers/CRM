@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<meta name="keywords" content=" {{ isset($b_meta_tag) ? $b_meta_tag : 'keywords' }}">
+    <meta name="description" content="{{ isset($b_meta_description) ? $b_meta_description : 'description' }}">	
+    <meta name="author" content="">
+    <title>{{ isset($title) ? $title : 'page title' }}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/css/modern-business.css') }}" rel="stylesheet">	
+        <link href="{{ asset('assets/css/datepicker.css') }}" rel="stylesheet">	
+   <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-97253663-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <style>
+    /* Ugly hacks to fix the container within navbar functionality - should be fixed in Bootstrap 4 beta */
+    
+    .navbar-toggler {
+        z-index: 1;
+    }
+    
+    @media (max-width: 576px) {
+        nav > .container {
+            width: 100%;
+        }
+    }
+   
+    </style>
+ @yield('head')
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('public.home')  }}"><img src="{{ asset('assets/images/logo.png') }}" ></a>
+            <div class="collapse navbar-collapse" id="navbarExample">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('list-your-venue') }}">List Your Venue</a>
+                    </li>
+                 
+                </ul>
+            </div>
+        </div>
+    </nav>
+ 
+ <div class="clear"></div>
+    <!-- Page Content -->
+     @yield('content')
+    <hr>
+    
+    <!-- /.container -->
+
+    <!-- Footer -->
+  
+        <div class="container">
+          <div class="row">
+		   <div class="col-lg-6">
+                <p class="m-0">Copyright &copy; 2017 searchvenue.co.uk. All rights reserved.</p>
+              </div> 
+			   <div class="col-lg-2"></div>
+             <div class="col-lg-2"> <a href="{{ url('contact-us') }}">Contact Us</a> | <a href="{{ url('blog') }}">Blog</a> </div>
+             <div class="col-lg-2">           
+           
+              <a class="facebookBtn smGlobalBtn" href="https://www.facebook.com/Search-Venue-1161703543951755/" target="_blank" ></a>
+			<a class="twitterBtn smGlobalBtn" href="https://twitter.com/SearchVenue" target="_blank"></a>
+			<a class="googleplusBtn smGlobalBtn" href="https://business.google.com/u/1/b/117331777456852850303/" target="_blank"></a>			
+			<a class="pinterestBtn smGlobalBtn" href="https://uk.pinterest.com/searchvenue/" target="_blank"></a>
+             <a class="instagramBtn smGlobalBtn" href="https://www.instagram.com/searchvenue/" target="_blank"></a>
+			<!--<a class="tumblrBtn smGlobalBtn" href="#" ></a>
+			<a class="rssBtn smGlobalBtn" href="#" ></a>
+            <a class="linkedinBtn smGlobalBtn" href="#" ></a>-->           
+     
+              </div> 
+              
+           </div>  
+        </div>
+        @yield('footer')
+        <!-- /.container -->
+
+
+    <!-- jQuery Version 3.1.1 -->
+    <script src="{{ asset('assets/js/jquery.js') }}"></script>
+
+    <!-- Tether -->
+    <script src="{{ asset('assets/js/tether.min.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel()
+    </script>
+<script  type="text/javascript" src="{{ asset('assets/js/typeahead.bundle.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // Defining the local dataset
+    var events = ['Anniversary',
+
+'Baby shower',
+'Bar mitzvah',
+'Birthday party',
+'Kids party',
+'Private dinner',
+'Private party',
+'Teen party',
+'Wedding',
+'Awards ceremony',
+'Away day',
+'BBQ party',
+'Car launch',
+'Charity dinner',
+'Christmas party',
+'Cocktail masterclass',
+'Conference',
+'Corporate hire',
+'Corporate party',
+'Corporate reception',
+'Exhibition',
+'Fashion show',
+'Film premiere',
+'Meeting',
+'Networking',
+'Pop Up',
+'Presentation',
+'Press day',
+'Private screening',
+'Product launch',
+'Sample sale',
+'Team building',
+'Theatre production',
+'Training',
+'Wine tasting',
+'Workshop',
+'Wrap party'];
+    
+    // Constructing the suggestion engine
+    var events = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: events
+    });
+    
+    // Initializing the typeahead
+    $('.typeahead').typeahead({
+        hint: true,
+        highlight: true, /* Enable substring highlighting */
+        minLength: 1 /* Specify minimum characters required for showing result */
+    },
+    {
+        name: 'events',
+        source: events
+    });
+});  
+
+
+</script>
+
+<script  type="text/javascript" src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script> 
+
+<script type="text/javascript">
+ $(document).ready(function(){
+var date = new Date();
+var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        $('#datepicker').datepicker({
+
+minDate: today,
+format: "dd/mm/yyyy"
+
+  });
+	
+    });
+          
+        </script>
+   <script  type="text/javascript" src="{{ asset('assets/js/validate.js') }}"></script> 
+    <script  type="text/javascript" src="{{ asset('assets/js/validate_venue.js') }}"></script>  
+    <script  type="text/javascript" src="{{ asset('assets/js/validate_contact.js') }}"></script>     
+        
+</body>
+
+</html>
